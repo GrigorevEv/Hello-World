@@ -12,16 +12,15 @@ rectangle.draw(window)
 
 
 coords = gr.Point(300, 200)
-velocity = gr.Point(-1, 1)
+velocity = gr.Point(0, 0)
 acceleration = gr.Point(0, 0)
 
 circle = gr.Circle(coords, 10)
 circle.setFill('blue')
 circle.draw(window)
 
-l = 10
+l = 20
 g = 9.8
-pi = 0
 
 
 def move(point):
@@ -45,15 +44,16 @@ def update_velocity(point_1, point_2):
 
 
 def update_acceleration(point):
-    a = -(g / l) * math.sin(pi)
-    new_point = gr.Point(point.x + a, point.y + a)
+    a = (g / l) * math.sin(pi)
+    new_point = gr.Point(point.x - a, point.y + a)
     return new_point
 
 
 while True:
-    move(velocity)
-    acceleration = update_acceleration(acceleration)
-    coords = update_coords(coords, velocity)
-    velocity = update_velocity(velocity, acceleration)
-
-    gr.time.sleep(0.01)
+    pi = math.pi/10
+    while pi != -math.pi/10:
+        move(velocity)
+        acceleration = update_acceleration(acceleration)
+        velocity = update_velocity(velocity, acceleration)
+        pi -= math.pi/100
+        gr.time.sleep(0.1)
