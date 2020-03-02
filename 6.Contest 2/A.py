@@ -1,16 +1,9 @@
+import math
 x, y, R = map(int, input().split())
-S = -R
-A = [0]*R*2+[0]
 
-for k in range(len(A)):
-    A[k] = S
-    S += 1
+c = math.sqrt(x**2 + y**2)
 
-if x and y in A:
+if c <= R:
     print('YES')
 else:
     print('NO')
-
-
-
-
