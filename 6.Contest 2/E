@@ -1,0 +1,15 @@
+N = int(input())
+A = []
+B = []
+while True:
+    try:
+        c = input().split(' ')
+        for num in c:
+            A.append(int(num))
+            break
+
+    except:
+        break
+
+print(A)
+print(B)
