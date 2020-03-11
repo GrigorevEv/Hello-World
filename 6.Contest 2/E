@@ -1,21 +1,21 @@
 N = int(input())
+d = input()
 A = []
 C = []
-while True:
-    try:
-        d = input().split(' ')
-        for num in d:
-            A.append(int(num))
-    except:
-        break
+
+while d != '#':
+    A.append(d)
+    d = input()
+
 for i in range(N):
     B = []
     for k in range(len(A)):
-        if A[k] == i:
-            B.append(A[k+1])
+        f = A[k].split()
+        if int(f[0]) == i:
+            B.append(int(f[1]))
     if B:
         C.append(B)
-print(C)
+
 C.sort(key=lambda s: (sum(s), s.sort(reverse=True)), reverse=True)
 for i in C:
     for k in i:
