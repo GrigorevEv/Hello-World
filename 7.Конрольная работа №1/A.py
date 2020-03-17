@@ -7,4 +7,10 @@ fridge_height = int(input())
 max_weight_on_the_bridge = int(input())
 max_height_on_the_tunnel = int(input())
 
-if max()
+if truck_weight + piano_weight + fridge_weight > max_weight_on_the_bridge :
+    print('NO')
+else:
+    if platform_height + fridge_height > max_height_on_the_tunnel:
+        print('NO')
+    else:
+        print('YES')
