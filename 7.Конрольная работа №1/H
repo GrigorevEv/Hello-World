@@ -1,0 +1,8 @@
+def dot_product(N, vector1, vector2):
+    scalar_product = 0
+    for i in range(N):
+        k = vector1[i] * vector2[i]
+        scalar_product += k
+    return scalar_product
+
+print(dot_product(3, [1, 2, 3], [4, 5, 6]))
