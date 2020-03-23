@@ -1,0 +1,16 @@
+t1 = 0
+t2 = 0
+t3 = 1
+x = int(input())
+k = 0
+i = 2
+if x == 0:
+    i = 2
+else:
+    while x >= k:
+        k = t1 + t2 + t3
+        t1 = t2
+        t2 = t3
+        t3 = k
+        i += 1
+print(i)
