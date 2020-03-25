@@ -1,0 +1,20 @@
+N = int(input())
+A = []
+C = []
+for i in range(N):
+    B = []
+    for k in range(3):
+        B.append(int(input()))
+    A.append(B)
+M = int(input())
+for i in range(M):
+    C.append(int(input()))
+for i in range(M):
+    D = []
+    for k in range(N-1,-1,-1):
+        D = A[k]
+        if D[0] < C[i] < D[1]:
+            print(D[2], end=' ')
+            break
+    else:
+        print(0, end=' ')
