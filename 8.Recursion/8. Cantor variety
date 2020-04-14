@@ -17,3 +17,27 @@ def cantor_variety(l, n, x, y):
 
 cantor_variety(500, 6, -300, 200)
 turtle.done()
+
+
+
+__________________________________________________________________________________
+
+
+import turtle
+
+
+turtle.shape('turtle')
+turtle.speed(0)
+
+def cantor_variety(x, y, l):
+    if l > 1:
+        turtle.penup()
+        turtle.goto(x, y)
+        turtle.pendown()
+        turtle.forward(l)
+        y -= 20
+        cantor_variety(x, y, l / 3)
+        cantor_variety(x + l * 2 / 3, y, l / 3)
+
+cantor_variety(-300, 200, 500)
+turtle.done()
