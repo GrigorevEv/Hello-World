@@ -1,0 +1,19 @@
+import turtle
+
+turtle.speed(0)
+turtle.shape('turtle')
+turtle.pensize(2)
+
+def cantor_variety(l, n, x, y):
+    if n == 0:
+        return
+    turtle.penup()
+    turtle.goto(x, y)
+    turtle.pendown()
+    turtle.forward(l)
+    y -= 20
+    cantor_variety(l/3, n-1, x, y)
+    cantor_variety(l/3, n-1, x+l*2/3, y)
+
+cantor_variety(500, 6, -300, 200)
+turtle.done()
