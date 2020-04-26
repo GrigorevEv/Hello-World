@@ -22,3 +22,34 @@ if q.empty():
     print('YES')
 else:
     print('NO')
+
+
+------------------------------------------------------
+
+
+s = input()
+meetings = 0
+
+for brace in s:
+    if brace == '(':
+        meetings += 1
+    else:
+        meetings -= 1
+        if meetings < 0:
+            print('NO')
+if meetings == 0:
+    print('YES')
+else:
+    print('NO')
+
+
+------------------------------------------------------------------
+
+
+s = input()
+while '()' in s:
+    s = s.replace('()', '')
+if not s:
+    print('YES')
+else:
+    print('NO')
