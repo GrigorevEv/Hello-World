@@ -1,0 +1,24 @@
+# Сдать решение задачи E-Скобочные выражения
+# Входные данные
+# Слово в алфавите из двух круглых скобочек ( и ). Длина слова меньше 4001
+# Выходные данные
+# Либо NO, либо YES
+# https://docs.python.org/3/library/queue.html
+# https://www.guru99.com/python-queue-example.html
+
+import queue
+
+q = queue.LifoQueue()
+s = input()
+
+for brace in s:
+    if brace in '(':
+        q.put(brace)
+    else:
+        if q.empty():
+            print('NO')
+        left = q.get()
+if q.empty():
+    print('YES')
+else:
+    print('NO')
