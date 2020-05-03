@@ -49,3 +49,4 @@ def sort(x):
 sort(A)  # Сортировка массива x значений элементов по возрастанию
 for k in range(len(A)):  # конвертация в char и вывод обратно в cтроку.
     print(chr(A[k]), end='')
+print('.',end='')
