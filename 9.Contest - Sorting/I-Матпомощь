@@ -8,6 +8,7 @@
 # Формат результата
 # Рост и вес (печатать рост с точностью до сантиметров, а вес - до граммов)
 # по одному студенту на строку от первого студента в шеренге к последнему
+# https://tproger.ru/translations/python-sorting/
 
 N = int(input())
 A = []
@@ -19,6 +20,10 @@ A = sorted(A, key=lambda x: x[0], reverse=True)
 A = sorted(A, key=lambda x: x[1])
 
 
+def toFixed(f: float, n=0):
+    a, b = str(f).split('.')
+    return '{}.{}{}'.format(a, b[:n], '0'*(n-len(b)))
+
+
 for i in range(N):
-    for k in range(len(A[i])):
-        print(A[i][k],end=' ')
+    print(toFixed(A[i][0], 2), toFixed(A[i][1], 3))
