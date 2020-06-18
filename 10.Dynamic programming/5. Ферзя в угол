@@ -1,0 +1,20 @@
+# Упражнение №5
+# Реализовать алгоритм поиска выигрышных и проигрышных позиций в игре с ферзём на прямоугольном поле M на N, где N — высота, а M — ширина поля.
+m = 6
+n = 9
+A = [[None]*m for i in range(n)]
+A[n - 1][m - 1] = False
+
+for i in range(n-1):
+    A[i][m - 1] = True
+for i in range(m-1):
+    A[n-1][i] = True
+while m != 1 or n != 1:
+    A[n][m] = True
+    m -= 1
+    n -= 1
+
+
+
+for i in range(len(A)):
+    print(A[i])
