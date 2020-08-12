@@ -1,8 +1,12 @@
 # https://e-maxx.ru/algo/z_function
+# Пусть даны две строки.
+# Найти все вхождения второй строки в первую.
 
 
-def z_func(s):
+def z_func(t, p):
+    s = p + '#' + t
     n = len(s)
+    k = 0
     z = [0] * len(s)
     l, r = 0, 0  # координаты самого правого отрезка совпадения
     for i in range(1, n):
@@ -13,7 +17,10 @@ def z_func(s):
         if i + z[i] - 1 > r:  # здесь выполняется обновление текущего самого правого отрезка совпадения [l;r]
             l = i
             r = i + z[i] - 1
-    return z
+    for i in range(n):
+        if z[i] == len(p):
+            k += 1
+    print(k, 'вхожд.')
 
 
-print(z_func('abaaaba'))
+z_func('abaaaba', 'aba')
