@@ -1,8 +1,8 @@
 import turtle
 
 turtle.shape('turtle')
-n=10
-x=y=0
+n = 10
+x = y = 0
 for i in range(10):
     turtle.penup()
     turtle.goto(x, y)

@@ -1,4 +1,4 @@
-# e-maxx.ru
+# https://e-maxx.ru/algo/z_function
 
 
 def z_func(s):
@@ -10,4 +10,5 @@ def z_func(s):
     return z
 
 
+print(z_func('abacaba'))
 print(z_func('abacaba'))
