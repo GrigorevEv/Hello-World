@@ -11,4 +11,3 @@ def z_func(s):
 
 
 print(z_func('abacaba'))
-print(z_func('abacaba'))
