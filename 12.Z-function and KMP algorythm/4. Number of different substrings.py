@@ -1,18 +1,24 @@
 # https://e-maxx.ru/algo/z_function
-# Пусть даны две строки.
-# Найти все вхождения второй строки в первую.
+# Дана строка s длины n.
+# Требуется посчитать количество её различных подстрок.
 
 
 def z_func(s):
     n = len(s)
     k = 0
     z = [0] * len(s)
+    t = ''
     for i in range(0, n):
-        while i + z[i] < n and s[z[i]] == s[i + z[i]]:
-            z[i] += 1
+        t += s[i]
+        rt = t[::-1]
+        for j in range(1, len(rt)):
+            while j + z[j] < len(rt) and rt[z[j]] == rt[j + z[j]]:
+                z[j] += 1
+        k += len(rt) - max(z)
+    print(k)
 
 
 
 
 
-z_func('abaaaba')
+z_func('fdgdflkdf;lkgkgkljdkljgdflkjlkdjfglkjdflkjgdlkllkghlk')
