@@ -16,4 +16,4 @@ def p_func(s):
     return pi
 
 
-print(p_func('aabaaab'))
+print(p_func('abcabcd'))
