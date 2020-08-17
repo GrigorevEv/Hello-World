@@ -4,7 +4,7 @@
 def p_func(s):
     n = len(s)
     pi = [0] * n
-    for i in range(n):
+    for i in range(1, n):
         for k in range(1, i + 1):
             equal = True
             for j in range(k):
