@@ -2,10 +2,10 @@
 
 
 def p_func(s, t):
+    # В первом варианте требуется для каждого префикса s[0 ... i] посчитать,
+    # сколько раз он встречается в самой же строке s
     n = len(s)
-    m = len(t)
     pi = [0] * n
-    k = 0
     for i in range(1, n):
         j = pi[i-1]
         while j > 0 and s[i] != s[j]:
@@ -13,15 +13,30 @@ def p_func(s, t):
         if s[i] == s[j]:
             j += 1
             pi[i] = j
-    ans = [0] * n
+    ans1 = [0] * n
     for i in range(n):
-        ans[pi[i]] += 1
-    print(ans)
+        ans1[pi[i]] += 1
     for i in range(n-1, 0, -1):
-        ans[pi[i-1]] += ans[i]
-    print(ans)
-
-    return pi
+        ans1[pi[i-1]] += ans1[i]
+    # Во втором варианте задачи дана другая строка t,
+    # и требуется для каждого префикса s[0 ... i] посчитать,
+    # сколько раз он встречается в t.
+    st = s + '#' + t
+    m = len(st)
+    pi = [0] * m
+    for i in range(1, m):
+        j = pi[i-1]
+        while j > 0 and st[i] != st[j]:
+            j = pi[j-1]
+        if st[i] == st[j]:
+            j += 1
+            pi[i] = j
+    ans2 = [0] * len(t)
+    for i in range(n+1, m):
+        ans2[pi[i]] += 1
+    for i in range(m-1, n, -1):
+        ans2[pi[i-1]] += ans2[i]
+    return ans1, ans2
 
 
 
