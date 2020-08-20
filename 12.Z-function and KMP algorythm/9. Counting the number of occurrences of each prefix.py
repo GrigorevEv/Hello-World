@@ -31,15 +31,13 @@ def p_func(s, t):
         if st[i] == st[j]:
             j += 1
             pi[i] = j
-    ans2 = [0] * len(t)
-    print(pi)
-    for i in range(m):
+    ans2 = [0] * (len(t) + 1)
+    for i in range(n, m):
         ans2[pi[i]] += 1
-    print(ans2)
     for i in range(len(ans2) - 1, 0, -1):
         ans2[pi[i-1]] += ans2[i]
 
-    return ans1, ans2
+    return ans1[1::], ans2[1::]
 
 
-print(p_func('abcdabcdababcd', 'abcdabcdababcd'))
+print(p_func('abcdabcdababcd', 'abcdabcdababcdaaaababab'))
