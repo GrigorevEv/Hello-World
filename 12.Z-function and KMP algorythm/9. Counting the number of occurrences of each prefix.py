@@ -31,10 +31,12 @@ def p_func(s, t):
         if st[i] == st[j]:
             j += 1
             pi[i] = j
+    print(pi)
     ans2 = [0] * len(t)
-    for i in range(n+1, m):
+    for i in range(n, m):
         ans2[pi[i]] += 1
-    for i in range(m-1, n, -1):
+    print(ans2)
+    for i in range(len(ans2) - 1, 0, -1):
         ans2[pi[i-1]] += ans2[i]
     return ans1, ans2
 
