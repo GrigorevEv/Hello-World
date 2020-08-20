@@ -21,4 +21,4 @@ def z_func(s):
 
 
 
-z_func('fdgdflkdf;lkgkgkljdkljgdflkjlkdjfglkjdflkjgdlkllkghlk')
+z_func('abc')

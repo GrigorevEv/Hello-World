@@ -4,15 +4,19 @@
 def p_func(s):
     n = len(s)
     pi = [0] * n
+    k = 0
+    t = ''
     for i in range(1, n):
+        t += s[i]
+        rt = t[::-1]
         j = pi[i-1]
-        while j > 0 and s[i] != s[j]:
+        while j > 0 and rt[i] != rt[j]:
             j = pi[j-1]
-        if s[i] == s[j]:
+        if rt[i] == rt[j]:
             j += 1
             pi[i] = j
-        print(pi)
-    return pi
+        k += len(rt) + 1 - max(pi)
+    print(k)
 
 
-print(p_func('abcabcd'))
+p_func('abc')
