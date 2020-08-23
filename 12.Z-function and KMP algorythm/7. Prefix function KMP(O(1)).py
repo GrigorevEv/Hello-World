@@ -11,8 +11,7 @@ def p_func(s):
         if s[i] == s[j]:
             j += 1
             pi[i] = j
-        print(pi)
     return pi
 
 
-print(p_func('abcabcd'))
+print(p_func('abbba'))
