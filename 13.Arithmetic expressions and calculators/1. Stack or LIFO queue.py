@@ -22,11 +22,20 @@ _stack = []
 
 
 def push(x):
+    '''
+    Добавляет элемент x в конец стека
+    >>> size = len(_stack)
+    >>> push(5)
+    >>> len(_stack) - size
+    1
+    >>> _stack[-1]
+    5
+    '''
     _stack.append(x)
 
 
 def pop():
-    x = _stack.pop() + 1
+    x = _stack.pop()
     return x
 
 
@@ -40,5 +49,5 @@ def is_empty():
 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod()
+    doctest.testmod(verbose=True)
 
