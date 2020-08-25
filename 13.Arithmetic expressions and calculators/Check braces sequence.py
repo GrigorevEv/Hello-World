@@ -14,7 +14,7 @@ def is_braces_sequence_correct(s: str):
     False
     """
     for brace in s:
-        if brace in '()[]':
+        if brace not in '()[]':
             continue
         if brace in '([':
             Stack_LIFO.push(brace)
