@@ -1,61 +1,65 @@
-import Stack_LIFO
+#Associativity constants for operators
+LEFT_ASSOC = 0
+RIGHT_ASSOC = 1
 
+#Supported operators
+OPERATORS = {
+    '+' : (0, LEFT_ASSOC),
+    '-' : (0, LEFT_ASSOC),
+    '*' : (5, LEFT_ASSOC),
+    '/' : (5, LEFT_ASSOC),
+    '%' : (5, LEFT_ASSOC),
+    '^' : (10, RIGHT_ASSOC)
+}
 
+#Test if a certain token is operator
+def isOperator(token):
+    return token in OPERATORS.keys()
 
-def reverse_polish_notation(s: str):
-    """
-    Проверяет корректность скобочной последовательности
-    из круглых, квадратных, и наклонных скобок ()[]//
+#Test the associativity type of a certain token
+def isAssociative(token, assoc):
+    if not isOperator(token):
+        raise ValueError('Invalid token: %s' % token)
+    return OPERATORS[token][1] == assoc
 
-    >>> is_braces_sequence_correct('///')
-    False
-    >>> is_braces_sequence_correct('45')
-    True
-    >>> is_braces_sequence_correct('//[]')
-    True
-    >>> is_braces_sequence_correct('/(([()]))/[]//')
-    True
-    >>> is_braces_sequence_correct('/([])/[]')
-    True
-    >>> is_braces_sequence_correct('(](]')
-    False
-    >>> is_braces_sequence_correct('(')
-    False
-    >>> is_braces_sequence_correct('([[[]]])')
-    True
-    >>> is_braces_sequence_correct(']')
-    False
-    >>> is_braces_sequence_correct('/')
-    False
-    >>> is_braces_sequence_correct('(/)/')
-    False
-    """
-    flag = True
-    Stack_LIFO.clear()
-    for brace in s:
-        if brace not in '()[]/':
-            continue
-        if brace in '([' or flag == True and brace in '/':
-            Stack_LIFO.push(brace)
-            if brace in '/':
-                flag = False
+#Compare the precedence of two tokens
+def cmpPrecedence(token1, token2):
+    if not isOperator(token1) or not isOperator(token2):
+        raise ValueError('Invalid tokens: %s %s' % (token1, token2))
+    return OPERATORS[token1][0] - OPERATORS[token2][0]
+
+#Transforms an infix expression to RPN
+def infixToRPN(tokens):
+    out = []
+    stack = []
+    #For all the input tokens [S1] read the next token [S2]
+    for token in tokens:
+        if isOperator(token):
+            # If token is an operator (x) [S3]
+            while len(stack) != 0 and isOperator(stack[-1]):
+                # [S4]
+                if (isAssociative(token, LEFT_ASSOC) and cmpPrecedence(token, stack[-1]) <= 0) or (isAssociative(token, RIGHT_ASSOC) and cmpPrecedence(token, stack[-1]) < 0):
+                    # [S5] [S6]
+                    out.append(stack.pop())
+                    continue
+                break
+            # [S7]
+            stack.append(token)
+        elif token == '(':
+            stack.append(token) # [S8]
+        elif token == ')':
+            # [S9]
+            while len(stack) != 0 and stack[-1] != '(':
+                out.append(stack.pop()) # [S10]
+            stack.pop() # [S11]
         else:
-            if Stack_LIFO.is_empty():
-                return False
-            left = Stack_LIFO.pop()
-            if left == '(':
-                right = ')'
-            elif left == '[':
-                right = ']'
-            elif left == '/':
-                right = '/'
-                flag = True
-            if right != brace:
-                return False
-    return Stack_LIFO.is_empty()
-
+            out.append(token) # [S12]
+    while len(stack) != 0:
+        # [S13]
+        out.append(stack.pop())
+    return out
 
 if __name__ == '__main__':
-    import doctest
-    doctest.testmod(verbose=True)
-
+    input = "( 1 + 2 ) * ( 3 / 4 ) ^ ( 5 + 6 )".split(" ")
+    output = infixToRPN(input)
+    print(output)
