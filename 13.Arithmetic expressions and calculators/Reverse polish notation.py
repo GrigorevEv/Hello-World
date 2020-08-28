@@ -12,18 +12,18 @@ OPERATORS = {
     '^': (10, RIGHT_ASSOC)
 }
 
-#Test if a certain token is operator(проверяет, является ли определенный токен оператором)
+#Test if a certain token is operator(проверяет, является ли определенный токен оператором, возвращает булево значение)
 def isOperator(token: bool):
     return token in OPERATORS.keys()
 
 
-#Test the associativity type of a certain token
+#Test the associativity type of a certain token (проверяет ассоциативность токена, сравнивая его с параметром assoc)
 def isAssociative(token, assoc):
     if not isOperator(token):
         raise ValueError('Invalid token: %s' % token)
     return OPERATORS[token][1] == assoc
 
-#Compare the precedence of two tokens
+#Compare the precedence of two tokens (сравнивает приоритеты двух токенов)
 def cmpPrecedence(token1, token2):
     if not isOperator(token1) or not isOperator(token2):
         raise ValueError('Invalid tokens: %s %s' % (token1, token2))

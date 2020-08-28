@@ -20,4 +20,5 @@ def isAssociative(token, assoc):
         raise ValueError('Invalid token: %s' % token)
     return OPERATORS[token][1] == assoc
 
-print(isAssociative(''1'', RIGHT_ASSOC))
+print(isAssociative('^', RIGHT_ASSOC))
+print(OPERATORS['*'][0])
