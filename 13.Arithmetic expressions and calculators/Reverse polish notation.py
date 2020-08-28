@@ -2,19 +2,20 @@
 LEFT_ASSOC = 0
 RIGHT_ASSOC = 1
 
-#Supported operators
+#Supported operators(в качестве значений словарей - используются кортежи)
 OPERATORS = {
-    '+' : (0, LEFT_ASSOC),
-    '-' : (0, LEFT_ASSOC),
-    '*' : (5, LEFT_ASSOC),
-    '/' : (5, LEFT_ASSOC),
-    '%' : (5, LEFT_ASSOC),
-    '^' : (10, RIGHT_ASSOC)
+    '+': (0, LEFT_ASSOC),
+    '-': (0, LEFT_ASSOC),
+    '*': (5, LEFT_ASSOC),
+    '/': (5, LEFT_ASSOC),
+    '%': (5, LEFT_ASSOC),
+    '^': (10, RIGHT_ASSOC)
 }
 
-#Test if a certain token is operator
-def isOperator(token):
+#Test if a certain token is operator(проверяет, является ли определенный токен оператором)
+def isOperator(token: bool):
     return token in OPERATORS.keys()
+
 
 #Test the associativity type of a certain token
 def isAssociative(token, assoc):
