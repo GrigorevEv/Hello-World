@@ -39,8 +39,11 @@ def infixToRPN(tokens):
             # If token is an operator (x) [S3]
             while len(stack) != 0 and isOperator(stack[-1]):
                 # [S4]
-                if (isAssociative(token, LEFT_ASSOC) and cmpPrecedence(token, stack[-1]) <= 0) or \
-                (isAssociative(token, RIGHT_ASSOC) and cmpPrecedence(token, stack[-1]) < 0):
+                if (isAssociative(token, LEFT_ASSOC) and cmpPrecedence(token, stack[-1]) <= 0) :
+                # 1) Если ассоциативность токена равна LEFT_ASSOC(+,-,/,*) и приоритет данного и предыдущего токенов <=0,
+                # т.е. это означает, например, что если данный токен + или -, а предыдущий *,/ или ^
+                # (или данный токен *,/, а предыдущий ^), то кладем предыдущий - в стек out.
+                # В противном случае помещаем его в стек stack, чтобы потом извлечь получив при этом правильный приоритет.
                     # [S5] [S6]
                     out.append(stack.pop())
                     continue
@@ -53,7 +56,8 @@ def infixToRPN(tokens):
             # [S9]
             while len(stack) != 0 and stack[-1] != '(':
                 out.append(stack.pop()) # [S10]
-            stack.pop() # [S11]
+                # Пока не дойдем до ( в стеке stack, переносим из stack в out токены
+            stack.pop() # [S11] удаляем (
         else:
             out.append(token) # [S12]
     while len(stack) != 0:
