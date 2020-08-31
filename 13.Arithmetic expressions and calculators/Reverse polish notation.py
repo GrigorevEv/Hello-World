@@ -39,7 +39,8 @@ def infixToRPN(tokens):
             # If token is an operator (x) [S3]
             while len(stack) != 0 and isOperator(stack[-1]):
                 # [S4]
-                if (isAssociative(token, LEFT_ASSOC) and cmpPrecedence(token, stack[-1]) <= 0) or (isAssociative(token, RIGHT_ASSOC) and cmpPrecedence(token, stack[-1]) < 0):
+                if (isAssociative(token, LEFT_ASSOC) and cmpPrecedence(token, stack[-1]) <= 0) or \
+                (isAssociative(token, RIGHT_ASSOC) and cmpPrecedence(token, stack[-1]) < 0):
                     # [S5] [S6]
                     out.append(stack.pop())
                     continue
@@ -61,6 +62,4 @@ def infixToRPN(tokens):
     return out
 
 if __name__ == '__main__':
-    input = "( 1 + 2 ) * ( 3 / 4 ) ^ ( 5 + 6 )".split(" ")
-    output = infixToRPN(input)
-    print(output)
+    print(infixToRPN(input()))
