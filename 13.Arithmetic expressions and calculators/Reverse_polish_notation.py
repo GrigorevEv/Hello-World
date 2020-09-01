@@ -1,3 +1,7 @@
+# https://ir.cwi.nl/pub/9251
+# https: // en.wikipedia.org / wiki / Shunting - yard_algorithm
+# https://commons.wikimedia.org/w/index.php?curid=10960619
+
 #Associativity constants for operators
 LEFT_ASSOC = 0
 RIGHT_ASSOC = 1
