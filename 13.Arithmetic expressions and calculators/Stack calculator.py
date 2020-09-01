@@ -1,7 +1,19 @@
 import Reverse_polish_notation
 
-def stack_calculator():
-    tokens = (Reverse_polish_notation.infixToRPN(input()))
+def stack_calculator(tokens):
+    """Калькулятор, который считает выражения в обратной польской нотации
+    >>> stack_calculator('(1+2^3)*2')
+    18
+    >>> stack_calculator('(1+2*2+3^2)^(1*2+1)')
+    2744
+    >>> stack_calculator('1+2+3-1-2+9^2')
+    84
+    >>> stack_calculator('5-1-2+5')
+    7
+    >>> stack_calculator('5-5')
+    0
+    """
+    tokens = (Reverse_polish_notation.infixToRPN(tokens))
     stack = []
     for token in tokens:
         if token in '0123456789':
@@ -10,16 +22,19 @@ def stack_calculator():
             x = stack.pop()
             y = stack.pop()
             if token == '+':
-                z = x + y
+                z = y + x
             elif token == '-':
-                z = x - y
+                z = y - x
             elif token == '*':
-                z = x * y
+                z = y * x
             elif token == '/':
-                z = x / y
+                z = y / x
             elif token == '^':
-                z = x ^ y
+                z = y ** x
             stack.append(z)
     return stack[0]
 
-print(stack_calculator())
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod(verbose=True)
