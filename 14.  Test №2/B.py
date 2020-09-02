@@ -11,14 +11,10 @@
 
 digit = 1
 A = []
-k = 0
 while digit != 0:
     digit = int(input())
     if digit == 0:
         break
     A.append(digit)
-m = max(A)
-for i in range(len(A)):
-    if A[i] != m:
-        k += 1
+k = len(A) - A.count(max(A))
 print(k)
