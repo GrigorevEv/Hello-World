@@ -16,3 +16,10 @@
 # Максимальный номер клетки задаётся количеством чисел в строке ввода.
 # Формат выходных данных
 # Клетки, по которым должен пройти Кузнечик, чтобы получить максимальную выгоду.
+
+start_up_capital = int(input())
+stock_exchange = list(map(int, input().split()))
+path_len = len(stock_exchange)
+dealings = [0, stock_exchange[0], stock_exchange[1], stock_exchange[2]] + [0]*(path_len - 3)
+for i in range(4, path_len + 1):
+    dealings[i] = dealings[i-1] +
