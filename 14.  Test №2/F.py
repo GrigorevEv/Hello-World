@@ -17,25 +17,29 @@
 # Формат выходных данных
 # Клетки, по которым должен пройти Кузнечик, чтобы получить максимальную выгоду.
 
-start_up_capital = int(input())
-stock_exchange = list(map(int, input().split()))
+start_up_capital = float(input())
+stock_exchange = list(map(float, input().split()))
 path_len = len(stock_exchange)
+dealings = [start_up_capital] + [0.] * (path_len - 1)
 # Будем считать, что кузнечик не может прыгать на и с клетки dealings[1], только с клетки dealings[0]
 # соответственно в клетку dealings[4] он может попасть только из клетки dealings[2]
-dealings = [stock_exchange[0], stock_exchange[1], stock_exchange[2], stock_exchange[3],
-            stock_exchange[2] + stock_exchange[4]] + [0]*(path_len - 5)
-for i in range(5, path_len):
-    dealings[i] = stock_exchange[i] + max(dealings[i-2], dealings[i-3])
-n = len(dealings)
-path = [n]
-while n > 2:
-    if dealings[n-2] > dealings[n-3]:
+for i in range(2, path_len):
+    if i == 4 or i == 2:
+        dealings[i] = stock_exchange[i]*start_up_capital/100 + dealings[i-2]
+        continue
+    dealings[i] = stock_exchange[i]*start_up_capital/100 + max(dealings[i-2], dealings[i-3])
+if dealings[path_len-1] < dealings[path_len-2]:
+    dealings.pop(path_len-1)
+n = len(dealings) - 1
+path = [len(dealings)]
+while n > 0:
+    if n == 4 or n == 2 or dealings[n-2] > dealings[n-3]:
         n -= 2
     else:
         n -= 3
-        if n < 1:
-            n = 1
-    path.append(n)
-
-print(dealings)
-print(path[::-1])
+    path.append(n+1)
+if dealings[len(dealings)-2] < start_up_capital and dealings[len(dealings)-1] < start_up_capital:
+    path.clear()
+    path.append(1)
+for i in range(len(path)-1, -1, -1):
+    print(path[i], end=' ')
