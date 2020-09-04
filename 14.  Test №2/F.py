@@ -20,6 +20,22 @@
 start_up_capital = int(input())
 stock_exchange = list(map(int, input().split()))
 path_len = len(stock_exchange)
-dealings = [0, stock_exchange[0], stock_exchange[1], stock_exchange[2]] + [0]*(path_len - 3)
-for i in range(4, path_len + 1):
-    dealings[i] = dealings[i-1] +
+# Будем считать, что кузнечик не может прыгать на и с клетки dealings[1], только с клетки dealings[0]
+# соответственно в клетку dealings[4] он может попасть только из клетки dealings[2]
+dealings = [stock_exchange[0], stock_exchange[1], stock_exchange[2], stock_exchange[3],
+            stock_exchange[2] + stock_exchange[4]] + [0]*(path_len - 5)
+for i in range(5, path_len):
+    dealings[i] = stock_exchange[i] + max(dealings[i-2], dealings[i-3])
+n = len(dealings)
+path = [n]
+while n > 2:
+    if dealings[n-2] > dealings[n-3]:
+        n -= 2
+    else:
+        n -= 3
+        if n < 1:
+            n = 1
+    path.append(n)
+
+print(dealings)
+print(path[::-1])
