@@ -11,16 +11,18 @@
 # Длина строки 1 <= N <= 200000.
 # Формат выходных данных
 # В выходной файл выведите N чисел — значения функции B(1), B(2), … B(N).
+import time
+start_time = time.time()
+
+string = "ikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyik"
+string_array = list(string)
+B = [0]*len(string)
 
 
-# 1. Нужно подсчитать длины всех подстрок строки s совпадающих с префиксом этой строки
-# 2. Выбрать из них максимальную по длине, которая имеет минимум три вхождения в строку s
-
-
+# 1. Считаем префикс функцию, чтобы узнать длины всех подстрок строки s совпадающих с префиксом этой строки
 def p_func(s):
     n = len(s)
     pi = [0] * n
-    A = []
     for i in range(1, n):
         j = pi[i-1]
         while j > 0 and s[i] != s[j]:
@@ -28,13 +30,25 @@ def p_func(s):
         if s[i] == s[j]:
             j += 1
             pi[i] = j
-    for i in range(len(pi)):
-        print(s.count(s[0:i]))
-        if s.count(s[0:i]) >= 3:
-            A.append(i)
-        else:
-            A.append(0)
-    return pi, A
+    return pi
 
 
-print(p_func('abacabacabacaba'))
+pi = p_func(string)
+
+# 2. Сравниваем полученные префиксы с отрезками строки, и считаем вхождения.
+# Если кол-во вхождений (в том числе и пересекающихся) больше или равно 2 (это означает что в самой строке их
+# больше или равно 3, учитывая сам префикс) то B[j+pi[i]-1] = pi[i]
+for i in range(len(pi)):
+    k = 0
+    if pi[i] == 0:
+        continue
+    for j in range(len(string_array)):
+        if string_array[j:j+pi[i]] == string_array[0:pi[i]]:
+            if k >= 2:
+                B[j+pi[i]-1] = pi[i]
+            else:
+                k += 1
+for i in range(len(B)):
+    print(B[i], end=' ')
+print()
+print("time elapsed: {:.2f}s".format(time.time() - start_time))

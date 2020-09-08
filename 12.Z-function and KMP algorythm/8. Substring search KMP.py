@@ -1,6 +1,7 @@
 # https://e-maxx.ru/algo/prefix_function
 
 
+
 def p_func(t, s):
     st = s + '#' + t
     n = len(st)
