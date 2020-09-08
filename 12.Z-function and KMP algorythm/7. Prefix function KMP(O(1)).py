@@ -1,7 +1,5 @@
 # https://e-maxx.ru/algo/prefix_function
 
-string = input()
-B = []
 
 
 def p_func(s):
@@ -16,3 +14,4 @@ def p_func(s):
             pi[i] = j
     return pi
 
+print(p_func('abacabacabacaba'))

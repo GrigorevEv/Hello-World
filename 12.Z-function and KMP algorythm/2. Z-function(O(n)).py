@@ -16,4 +16,4 @@ def z_func(s):
     return z
 
 
-print(z_func('abaaaba'))
+print(z_func('abacabacabacaba'))

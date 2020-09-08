@@ -34,18 +34,23 @@ def p_func(s):
 
 
 pi = p_func(string)
+c = []
 
 # 2. Сравниваем полученные префиксы с отрезками строки, и считаем вхождения.
 # Если кол-во вхождений (в том числе и пересекающихся) больше или равно 2 (это означает что в самой строке их
 # больше или равно 3, учитывая сам префикс) то B[j+pi[i]-1] = pi[i]
-for i in range(len(pi)):
+for i in range(len(pi)//2):
     k = 0
     if pi[i] == 0:
+        continue
+    if pi[i] in c:
+        B[i] = pi[i]
         continue
     for j in range(len(string_array)):
         if string_array[j:j+pi[i]] == string_array[0:pi[i]]:
             if k >= 2:
                 B[j+pi[i]-1] = pi[i]
+                c.append(pi[i])
             else:
                 k += 1
 for i in range(len(B)):
