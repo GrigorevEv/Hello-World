@@ -1,5 +1,4 @@
 import turtle
-import math
 import  time
 def star(n,a):
     '''n - количество углов звезды,
@@ -22,6 +21,6 @@ star(5,200)
 turtle.penup()
 turtle.goto(90,-65)
 turtle.pendown()
-star(11,200)
+star(17,200)
 time.sleep(5)
 
