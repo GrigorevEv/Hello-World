@@ -14,7 +14,7 @@
 import time
 start_time = time.time()
 
-string = "ikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyikizikiyikixikixikixikiyikizikiyikixikiyikixikiyikizikiyikixikizikixikiyikizikiyikixikiyikixikiyik"
+string = "abacabacabacaba"
 string_array = list(string)
 B = [0]*len(string)
 
@@ -34,18 +34,14 @@ def p_func(s):
 
 
 pi = p_func(string)
+print(pi)
 c = []
 
 # 2. Сравниваем полученные префиксы с отрезками строки, и считаем вхождения.
 # Если кол-во вхождений (в том числе и пересекающихся) больше или равно 2 (это означает что в самой строке их
 # больше или равно 3, учитывая сам префикс) то B[j+pi[i]-1] = pi[i]
-for i in range(len(pi)//2):
+for i in range(len(pi)):
     k = 0
-    if pi[i] == 0:
-        continue
-    if pi[i] in c:
-        B[i] = pi[i]
-        continue
     for j in range(len(string_array)):
         if string_array[j:j+pi[i]] == string_array[0:pi[i]]:
             if k >= 2:
