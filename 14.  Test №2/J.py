@@ -13,7 +13,7 @@
 
 
 dig = input()
-a = []
+a = [0]
 for symbol in dig:
     if symbol == 'I':
         a.append(1)
@@ -29,17 +29,23 @@ for symbol in dig:
         a.append(500)
     elif symbol == 'M':
         a.append(1000)
-print(a)
 
 arabic_digit = 0
 flag = True
 temp = 0
-for i in range(len(a)-1, -1, -1):
+for i in range(len(a)-1, 0, -1):
+    if flag is False:
+        flag = True
+        continue
     if a[i] > a[i-1]:
         arabic_digit += a[i] - a[i-1]
+        flag = False
     elif a[i] < a[i-1]:
         arabic_digit += a[i] + a[i-1]
-    elif a[i] == a[i-1]:
-        temp += a[i]
+        flag = False
+    if a[i] == a[i-1]:
+        arabic_digit += a[i]
+
+print(str(arabic_digit))
 
 
