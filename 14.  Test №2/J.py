@@ -12,3 +12,34 @@
 # Это же число в арабских цифрах. Стоит выводить число, конвертированное в строку, т.е. str(answer)
 
 
+dig = input()
+a = []
+for symbol in dig:
+    if symbol == 'I':
+        a.append(1)
+    elif symbol == 'V':
+        a.append(5)
+    elif symbol == 'X':
+        a.append(10)
+    elif symbol == 'L':
+        a.append(50)
+    elif symbol == 'C':
+        a.append(100)
+    elif symbol == 'D':
+        a.append(500)
+    elif symbol == 'M':
+        a.append(1000)
+print(a)
+
+arabic_digit = 0
+flag = True
+temp = 0
+for i in range(len(a)-1, -1, -1):
+    if a[i] > a[i-1]:
+        arabic_digit += a[i] - a[i-1]
+    elif a[i] < a[i-1]:
+        arabic_digit += a[i] + a[i-1]
+    elif a[i] == a[i-1]:
+        temp += a[i]
+
+
