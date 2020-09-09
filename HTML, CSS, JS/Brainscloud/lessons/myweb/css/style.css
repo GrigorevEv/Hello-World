@@ -1,0 +1,126 @@
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 15px;
+        line-height: 1.5;
+        color: #1a3d4e;
+        background-color: #eee;
+        background: #eee url("/../img/pattern.png");
+        background-size: 600px 600px;
+    }
+
+    p {
+        text-indent: 20px;
+    }
+
+    .title {
+        font-family: Tahoma, sans-serif;
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: -2px;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    .justify {
+        text-align: justify;
+        font-weight: bold;
+        font-style: italic;
+        text-transform: capitalize;
+    }
+
+    ul {
+        list-style-type: square;
+    }
+
+    ol {
+        list-style-type: decimal-leading-zero;
+        list-style-position: outside;
+        font-family: Tahoma, sans-serif;
+        color: #1a1ac7;
+    }
+
+    .table {
+        width: 100%;
+        border: 1px dashed #000;
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+
+    .table th {
+        border: 1px solid #000;
+        padding: 5px 10px;
+        text-align: left;
+        color: #585205
+    }
+
+    .table td {
+        padding: 5px 10px;
+        border: 1px dashed #000;
+    }
+
+    .table tfoot td {
+        text-align: right;
+    }
+
+    .text-red {
+        display: inline-block;
+        width: 100px;
+        padding: 10px;
+        color: #e01111;
+        font-weight: 700;
+        font-style: italic;
+    }
+
+    .page {
+        width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    /*Post*/
+
+    .post {
+        width: 600px;
+        height: 300px;
+        padding: 15px 25px;
+        margin: 0 auto 20px;
+        border: 1px solid #ddd;
+        background-position: center;
+        background: #fff url("../img/bg.jpg") no-repeat;
+        background-size: cover;
+    }
+
+    .post-title {
+        margin: 0 0 20px 0;
+        color: yellow;
+    }
+
+    .post-text p {
+        margin: 0 0 10px 0;
+        color: snow;
+    }
+    /*Gradient*/
+
+    .gradient {
+        width: 600px;
+        height: 300px;
+        margin: 0 auto;
+        /*background-image: linear-gradient(to left,#64548e,#000,#cb4e4e);*/
+        background-image: radial-gradient(circle, #64548e, #000, #cb4e4e);
+    }
+
+/*Form*/
+.form{
+    width: 500px;
+    padding: 20px;
+    margin: auto;
+    background-color: #fff;
+    color: black
+}
+
+.form-group{
+    margin-bottom: 15px;
+}
+
+.form-input{
+    padding: 5px
+}
