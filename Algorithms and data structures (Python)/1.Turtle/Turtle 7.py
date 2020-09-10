@@ -1,22 +1,27 @@
+# Нарисуйте «бабочку» из окружностей.
+# Используйте функцию, рисующую окружность.
+
 import turtle
 
 
-
-def infinity(k,d):
-    '''Функция для рисования лепестков.
+def infinity(k, d):
+    """
     k - количество парных лепестков
-    d - условный размер лепестка'''
+    d - условный размер лепестка
+    """
     turtle.shape('turtle')
     turtle.speed(500)
     turtle.left(90)
-    n=50
-    e=5
+    n = 50
+    e = 5
     for i in range(k):
-        for i in range(n):
+        for j in range(n):
             turtle.forward(e)
             turtle.left(360/n)
-        for i in range(n):
+        for k in range(n):
             turtle.forward(e)
             turtle.right(360/n)
-        e+=d
-infinity(40,1)
+        e += d
+
+
+infinity(40, 1)

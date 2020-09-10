@@ -1,3 +1,5 @@
+# Нарисуйте 10 вложенных квадратов
+
 import turtle
 
 turtle.shape('turtle')
@@ -15,7 +17,6 @@ for i in range(10):
     turtle.left(90)
     turtle.forward(n)
     turtle.left(90)
-    n+=15
-    x+=-7
-    y+=-7
-
+    n += 15
+    x += -7
+    y += -7

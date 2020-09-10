@@ -1,23 +1,14 @@
+# Нарисуйте спираль
+
 import turtle
 import math
 
 turtle.shape('turtle')
-x=1
-n=500
-fi=5
-dfi=5
-a=10
-k=1
-while x!=n:
 
-
-    p=k*(fi+dfi)
-    dh=p*dfi
-    dp=k*dfi
-    turtle.left(fi + dfi)
-    turtle.forward((dh**2+dp**2)**0.5)
-    x+=1
-    fi+=5
-
-
+for i in range(200):
+    # i / 20 — смещение точки M по лучу r при повороте на угол, равный одному радиану.
+    t = i / 20 * math.pi
+    x = t * math.cos(t) * 5
+    y = t * math.sin(t) * 5
+    turtle.goto(x, y)
 
