@@ -10,6 +10,8 @@
         <div class="form">
             <h1 class="title">Форма</h1>
 
+            <a class="link" href="#">Ссылка</a>
+
             <form action="/" method="post">
                 <fieldset>
                     <legend>Контактная информация</legend>
@@ -45,19 +47,18 @@
                     <input type="radio" name="choose_male" id="male">
 
                     <label for="female">Жен</label>
-                    <input type="radio" name="choose_male" id="female">
+                    <input type="radio" name="choose_male" id="female" ch>
                 </div>
                 <div class="form-group">
                     <label for="photo">Фото</label>
                     <input type="file" name="photo" id="photo">
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" name="rules_agree" id="rules_agree">
+                    <input type="checkbox" name="rules_agree" id="rules_agree" checked>
                     <label for="rules_agree">Прочитал условия и согласен с ними</label>
                 </div>
-                <button type="submit">Отправить</button>
-                <button type="reset">Очистить</button>
-                <button type="button">Кнопка</button>
+                <button class="btn" type="submit" >Отправить</button>
+
             </form>
         </div>
     </body>
