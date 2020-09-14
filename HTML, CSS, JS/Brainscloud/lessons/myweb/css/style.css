@@ -122,6 +122,19 @@
 }
 
 .form-input{
+    display: block;
     padding: 5px;
     border: 1px solid #000;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+}
+
+.form-textarea{
+    width: 200px;
+    height: 150px;
+    padding: 5px;
+    border: 1px solid #000;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+
 }
