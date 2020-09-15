@@ -27,7 +27,7 @@ try:
             for i in range(0, len(B), c):
                 if B[i:(i + c)] != D:
                     f = False
-            if f == True:
+            if f:
                 for i in D:
                     print(i, end='')
             else:
