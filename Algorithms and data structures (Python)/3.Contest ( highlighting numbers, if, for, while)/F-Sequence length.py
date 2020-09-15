@@ -9,6 +9,6 @@
 # Вывести длину последовательности.
 
 length = 0
-while int(input()) != 0:
+while int(input()):
     length += 1
 print(length)
