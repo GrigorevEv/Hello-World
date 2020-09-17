@@ -32,6 +32,7 @@ def clear_window():
 
 
 def ball_move(point):
+    pass
 
 
 

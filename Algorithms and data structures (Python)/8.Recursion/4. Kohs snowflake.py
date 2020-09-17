@@ -1,3 +1,7 @@
+# Три копии кривой Коха, построенные (остриями наружу) на сторонах правильного треугольника,
+# образуют замкнутую кривую бесконечной длины, называемую снежинкой Коха
+
+
 import turtle
 
 turtle.shape('turtle')
@@ -21,11 +25,12 @@ def koch_line(l, n):
     koch_line(l, n - 1)
 
 
-def koch_snowflake(l,n):
+def koch_snowflake(l, n):
     koch_line(l, n)
     turtle.right(120)
     koch_line(l, n)
     turtle.right(120)
     koch_line(l, n)
 
-koch_snowflake(500,3)
+
+koch_snowflake(500, 3)

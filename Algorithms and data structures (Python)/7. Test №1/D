@@ -1,9 +1,0 @@
-A = [0]
-a = None
-while a != 0:
-    a = int(input())
-    if a == 0:
-        break
-    if a % 2 == 0:
-        A.append(a)
-print(max(A))

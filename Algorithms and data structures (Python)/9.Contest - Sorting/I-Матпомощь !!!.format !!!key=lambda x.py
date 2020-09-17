@@ -13,17 +13,17 @@
 N = int(input())
 A = []
 for i in range(N):
-    s = list(map(float,input().split()))
+    s = list(map(float, input().split()))
     A.append(s)
 
 A = sorted(A, key=lambda x: x[0], reverse=True)
 A = sorted(A, key=lambda x: x[1])
 
 
-def toFixed(f: float, n=0):
+def to_fixed(f: float, n=0):
     a, b = str(f).split('.')
     return '{}.{}{}'.format(a, b[:n], '0'*(n-len(b)))
 
 
 for i in range(N):
-    print(toFixed(A[i][0], 2), toFixed(A[i][1], 3))
+    print(to_fixed(A[i][0], 2), to_fixed(A[i][1], 3))
