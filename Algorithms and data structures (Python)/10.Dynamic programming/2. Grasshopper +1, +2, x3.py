@@ -4,11 +4,13 @@
 
 
 def grasshopper(n):
-    F = [0,1] + [0]*(n-1)
+    f = [0, 1] + [0]*(n-1)
     for i in range(2, n+1):
         if i % 3 == 0:
-            F[i] = F[i-1] + F[i - 2] + F[i//3]
+            f[i] = f[i-1] + f[i - 2] + f[i//3]
         else:
-            F[i] = F[i - 1] + F[i - 2]
-    return F[n]
+            f[i] = f[i - 1] + f[i - 2]
+    return f[n]
+
+
 print(grasshopper(6))

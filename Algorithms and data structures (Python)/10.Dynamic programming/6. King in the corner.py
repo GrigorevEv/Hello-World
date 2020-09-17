@@ -31,7 +31,7 @@ def king_in_the_corner(n, m):
         print(a[i])
 
 
-king_in_the_corner(15,20)
+king_in_the_corner(15, 20)
 
 
 

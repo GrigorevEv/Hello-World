@@ -3,18 +3,18 @@
 # чтобы вычислить значения prev[i], и восстановите траекторию наименьшей стоимости из точки 1 в точку n.
 
 def count_min_cost(n, price: list):
-    C = [0, price[1], price[2]]+[0]*(n-2)
+    c = [0, price[1], price[2]]+[0]*(n-2)
     for i in range(3, n+1):
-        C[i] = price[i] + min(C[i-1], C[i-2])
+        c[i] = price[i] + min(c[i-1], c[i-2])
     prev = [n]
     i = n
     while i > 0:
-        if C[i - 1] < C[i - 2]:
+        if c[i - 1] < c[i - 2]:
             i -= 1
         else:
             i -= 2
         prev.append(i)
-    print(C[n])
+    print(c[n])
     print(prev[::-1])
 
 
