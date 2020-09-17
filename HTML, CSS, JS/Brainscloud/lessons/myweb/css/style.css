@@ -17,7 +17,7 @@
         text-align: center;
         font-weight: 700;
         letter-spacing: -2px;
-        text-decoration: none;
+        text-decoration: underline;
         text-transform: uppercase;
     }
 
@@ -139,7 +139,11 @@
     width: 200px;
     height: 150px;
     padding: 5px;
+
     border: 1px solid #000;
+    outline: 5px dotted red;
+
+    font:bold italic 15px/1.5 Arial, sans-serif;
     font-family: Arial, sans-serif;
     font-size: 15px;
 
@@ -196,6 +200,22 @@
 }
 
 
+
+.form-fieldset{
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+
+}
+
+
+
+.form-title{
+    margin: 0 0 15px;
+}
+
+
+
 /* Modal */
 
 .modal{
@@ -241,3 +261,16 @@
     left: 50%;
     z-index: 1;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
