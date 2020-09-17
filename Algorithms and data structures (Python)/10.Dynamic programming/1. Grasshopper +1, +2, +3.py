@@ -4,8 +4,10 @@
 
 
 def grasshopper(n):
-    F = [1,1,2] + [0]*(n-2)
+    f = [1, 1, 2] + [0] * (n - 2)
     for i in range(3, n+1):
-        F[i] = F[i-1] + F[i - 2] + F[i - 3]
-    return F[n]
+        f[i] = f[i - 1] + f[i - 2] + f[i - 3]
+    return f[n]
+
+
 print(grasshopper(4))
