@@ -263,14 +263,47 @@
 }
 
 
+/* Pseudo */
+
+.pseudo-title{
+    margin: 0;
+    position: relative;
+
+    font-size: 30px;
+    text-align: center;
+}
+
+.pseudo-title::before{
+    content: "";
+    display: block;
+    width: 70px;
+    height: 3px;
+    margin-left: -35px;
+
+    background-color: red;
+    position: absolute;
+    bottom: -5px;
+    left: 50%
+}
+
+.pseudo-title::after{
+    content: "";
+    display: block;
+    margin:5px auto;
+    width: 70px;
+    height: 3px;
+
+    background-color: rebeccapurple;
+}
 
 
+.pseudo-text p:first-letter{
+    color: #ba1e1e;
+    font-size: 25px;
+}
 
-
-
-
-
-
-
+.pseudo-text p:first-line{
+    color: #ba1e1e;
+}
 
 
