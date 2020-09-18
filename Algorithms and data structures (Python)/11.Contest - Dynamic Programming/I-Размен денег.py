@@ -16,13 +16,4 @@ def make_exchange(money: int, coins: list):
     return ways[money]
 
 
-# a = input()
-# b = a.replace(',', ' ').replace('[', '').replace(']', ' ')
-# c = list(filter(lambda x: x.isdigit(), b.split()))
-# c = list(map(int, c))
-# money = c[0]
-# c.remove(c[0])
-# coins = c
-# money = int(input())
-# coins = list(map(int, input().split(' ')))
-# print(make_exchange(money, coins))
+print(make_exchange(10, [2, 3, 5]))

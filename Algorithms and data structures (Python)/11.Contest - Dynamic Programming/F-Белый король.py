@@ -17,7 +17,7 @@ def king_horse():
     h = input()
     f = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     moves = [[1, 2], [1, -2], [-1, 2], [-1, -2], [2, 1], [2, -1], [-2, 1], [-2, -1]]
-    d = [[0]*12 for i in range(12)]
+    d = [[0] * 12 for i in range(12)]
     ci = 10 - int(h[1])
     cj = 0
     for j in range(8):
@@ -33,13 +33,12 @@ def king_horse():
     for i in range(9, 1, -1):
         for j in range(2, 10):
             if d[i][j] != 4:
-                d[i][j] = d[i+1][j] + d[i][j-1] + d[i+1][j-1]
+                d[i][j] = d[i + 1][j] + d[i][j - 1] + d[i + 1][j - 1]
             else:
                 d[i][j] = 0
 
-
-    # for i in range(12):
-    #     print(d[i])
+    for i in range(12):
+        print(d[i])
     print(d[2][9])
 
 
