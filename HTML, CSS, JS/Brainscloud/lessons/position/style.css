@@ -3,3 +3,56 @@ body{
 
     background-color: #eee;
 }
+
+
+.composition{
+    width: 650px;
+    height: 400px;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+
+    background-color: #fff
+}
+
+.road{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.car{
+    position: absolute;
+    right: 30px;
+    bottom: 40px;
+    z-index: 3;
+}
+
+.tree{
+    position: absolute;
+    right: 50px;
+    bottom: 80px;
+    z-index: 2
+}
+
+.cloud{
+    position: absolute;
+    top: 30px;
+    left: -20px;
+    z-index: 2;
+}
+
+.cloud2{
+    position: absolute;
+    top: 10px;
+    left: 120px;
+    z-index: 1;
+}
+
+.cloud3{
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    z-index: 1;
+}
