@@ -65,3 +65,31 @@ body{
     outline: 0;
     border-color: #28cbd1;
 }
+
+
+/* Btn */
+
+.btn{
+    display: block;
+    width: 260px;
+    padding: 10px;
+
+    border: 0;
+    background-color: #1bc96b;
+    font-family: inherit;
+    font-size: 15px;
+    color: #fff;
+}
+
+.btn:focus{
+    outline: 0;
+}
+
+.btn:hover{
+    background-color: #137741;
+    cursor: pointer;
+}
+
+.btn:active{
+    background-color: #0c4b29;
+}
