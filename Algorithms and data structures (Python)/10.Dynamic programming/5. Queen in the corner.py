@@ -53,5 +53,5 @@ def queen_in_the_corner(n, m):
         print(a[i])
 
 
-queen_in_the_corner(3, 15)
+queen_in_the_corner(10, 10)
 
