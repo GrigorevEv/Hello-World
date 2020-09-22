@@ -16,6 +16,8 @@ def p_func(s, t):
     ans1 = [0] * n
     for i in range(n):
         ans1[pi[i]] += 1
+    print(pi)
+    print(ans1)
     for i in range(n-1, 0, -1):
         ans1[pi[i-1]] += ans1[i]
     # Во втором варианте задачи дана другая строка t,

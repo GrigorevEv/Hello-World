@@ -1,7 +1,6 @@
 # https://e-maxx.ru/algo/prefix_function
 
 
-
 def p_func(s):
     n = len(s)
     pi = [0] * n
@@ -14,4 +13,5 @@ def p_func(s):
             pi[i] = j
     return pi
 
-print(p_func('abacabacabacaba'))
+
+print(p_func('abadbabaa'))
