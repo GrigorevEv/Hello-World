@@ -13,7 +13,7 @@ def stack_calculator(tokens):
     >>> stack_calculator('5-5')
     0
     """
-    tokens = (Reverse_polish_notation.infixToRPN(tokens))
+    tokens = (Reverse_polish_notation.infix_to_rpn(tokens))
     stack = []
     for token in tokens:
         if token in '0123456789':
