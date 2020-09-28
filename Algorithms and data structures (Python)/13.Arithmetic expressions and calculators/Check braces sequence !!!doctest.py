@@ -44,6 +44,7 @@ def is_braces_sequence_correct(s: str):
             if Stack_LIFO.is_empty():
                 return False
             left = Stack_LIFO.pop()
+            right = ''
             if left == '(':
                 right = ')'
             elif left == '[':
