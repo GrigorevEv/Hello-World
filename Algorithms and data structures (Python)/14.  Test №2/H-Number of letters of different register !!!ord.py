@@ -8,7 +8,7 @@
 # Два числа - количество прописных и строчных букв. Вывести в одну строку через пробел.
 
 string = input()
-new_string =[]
+new_string = []
 for letter in string:
     if letter in 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM':
         new_string.append(letter)

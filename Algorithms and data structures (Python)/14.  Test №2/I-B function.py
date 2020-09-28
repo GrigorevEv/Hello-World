@@ -14,7 +14,7 @@
 import time
 start_time = time.time()
 
-string = "abacabacabacaba"
+string = "abcabcabc"
 string_array = list(string)
 B = [0]*len(string)
 
@@ -34,22 +34,21 @@ def p_func(s):
 
 
 pi = p_func(string)
-print(pi)
-c = []
+# print(pi)
 
 # 2. Сравниваем полученные префиксы с отрезками строки, и считаем вхождения.
 # Если кол-во вхождений (в том числе и пересекающихся) больше или равно 2 (это означает что в самой строке их
 # больше или равно 3, учитывая сам префикс) то B[j+pi[i]-1] = pi[i]
 for i in range(len(pi)):
-    k = 0
+    k = 1
     for j in range(len(string_array)):
         if string_array[j:j+pi[i]] == string_array[0:pi[i]]:
-            if k >= 2:
+            if k >= 3:
                 B[j+pi[i]-1] = pi[i]
-                c.append(pi[i])
             else:
                 k += 1
 for i in range(len(B)):
     print(B[i], end=' ')
 print()
 print("time elapsed: {:.2f}s".format(time.time() - start_time))
+

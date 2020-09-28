@@ -7,14 +7,16 @@
 # Отсортированный список чисел через пробел
 
 digits = list(map(int, input().split()))
+even_sorted_digits = []
+odd_even_sorted_digits = []
 sorted_digits = []
 digits.sort()
 for i in range(len(digits)):
     if digits[i] % 2 == 0:
-        sorted_digits.append(digits[i])
-for i in range(len(digits)):
-    if digits[i] % 2 == 1:
-        sorted_digits.append(digits[i])
+        even_sorted_digits.append(digits[i])
+    else:
+        odd_even_sorted_digits.append(digits[i])
+sorted_digits = even_sorted_digits + odd_even_sorted_digits
 for i in range(len(sorted_digits)):
     print(sorted_digits[i], end=' ')
 
