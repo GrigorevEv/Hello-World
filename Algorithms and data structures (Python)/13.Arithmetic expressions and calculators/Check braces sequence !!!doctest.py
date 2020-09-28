@@ -1,5 +1,6 @@
 import Stack_LIFO
 
+
 # Написать программу, определяющую правильность введенного скобочного выражения
 # , в котором используются скобки 3 видов: (), {}, /.
 
@@ -36,7 +37,7 @@ def is_braces_sequence_correct(s: str):
     for brace in s:
         if brace not in '()[]/':
             continue
-        if brace in '([' or flag == True and brace in '/':
+        if brace in '([' or flag is True and brace in '/':
             Stack_LIFO.push(brace)
             if brace in '/':
                 flag = False
@@ -59,5 +60,5 @@ def is_braces_sequence_correct(s: str):
 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod(verbose=True)
 
+    doctest.testmod(verbose=True)
