@@ -1,2 +1,4 @@
-a = "df"
-print(a.__dict__)
+a = 5
+b = 5
+print(id(a), id(b))
+print(a == b)
