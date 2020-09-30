@@ -1,4 +1,6 @@
-a = 5
-b = 5
-print(id(a), id(b))
-print(a == b)
+for num in range(2, 10):
+    if num % 2 == 0:
+        print("Found an even number", num)
+        continue
+    print("Found a number", num)
+
