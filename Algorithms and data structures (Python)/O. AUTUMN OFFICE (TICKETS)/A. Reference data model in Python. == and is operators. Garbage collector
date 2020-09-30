@@ -1,0 +1,210 @@
+1. Reference data model in Python.
+
+
+Objects, values and types
+Objects are Python’s abstraction for data. All data in a Python program is represented by objects or by relations between objects.
+
+Every object has an identity, a type and a value. An object’s identity never changes once it has been created; you may think of it as the object’s address in memory. The ‘is‘ operator compares the identity of two objects; the id() function returns an integer representing its identity.
+
+CPython implementation detail: For CPython, id(x) is the memory address where x is stored.
+
+An object’s type determines the operations that the object supports (e.g., “does it have a length?”) and also defines the possible values for objects of that type. The type() function returns an object’s type (which is an object itself). Like its identity, an object’s type is also unchangeable. [1]
+
+The value of some objects can change. Objects whose value can change are said to be mutable; objects whose value is unchangeable once they are created are called immutable. (The value of an immutable container object that contains a reference to a mutable object can change when the latter’s value is changed; however the container is still considered immutable, because the collection of objects it contains cannot be changed. So, immutability is not strictly the same as having an unchangeable value, it is more subtle.) An object’s mutability is determined by its type; for instance, numbers, strings and tuples are immutable, while dictionaries and lists are mutable.
+
+Objects are never explicitly destroyed; however, when they become unreachable they may be garbage-collected. An implementation is allowed to postpone(откладывать) garbage collection or omit it altogether (или опустить его в целом) — it is a matter of implementation quality how garbage collection is implemented, as long as no objects are collected that are still reachable(до тех пор, пока не будут собраны объекты, которые все еще доступны).
+
+CPython implementation detail: CPython currently uses a reference-counting scheme with (optional) delayed detection of cyclically linked garbage, which collects most objects as soon as they become unreachable, but is not guaranteed to collect garbage containing circular references. See the documentation of the gc module for information on controlling the collection of cyclic garbage. Other implementations act differently and CPython may change. Do not depend on immediate finalization of objects when they become unreachable (ex: always close files).
+
+Some objects contain references to “external” resources such as open files or windows. It is understood that these resources are freed when the object is garbage-collected, but since garbage collection is not guaranteed to happen, such objects also provide an explicit way to release(предоставляют явный способ освободить) the external resource, usually a close() method. Programs are strongly recommended to explicitly close such objects. The ‘try...finally‘ statement and the ‘with‘ statement provide convenient ways (предоставляют удобные способы) to do this.
+
+Some objects contain references to other objects; these are called containers. Examples of containers are tuples, lists and dictionaries. The references are part of a container’s value. In most cases, when we talk about the value of a container, we imply (подразумеваем) the values, not the identities of the contained objects; however, when we talk about the mutability of a container, only the identities of the immediately contained objects are implied(подразумеваются только идентичности непосредственно содержащихся объектов). So, if an immutable container (like a tuple) contains a reference to a mutable object, its value changes if that mutable object is changed.
+
+Types affect almost all aspects of object behavior(типы влияют практически на все аспекты поведения объекта). Even the importance of object identity is affected in some sense (в некотором смысле затрагивается даже важность идентичности объекта): for immutable types, operations that compute(вычисляют) new values may actually return a reference to any existing object with the same type and value, while for mutable objects this is not allowed. E.g., after a = 1; b = 1, a and b may or may not refer to the same object with the value one, depending on the implementation, but after c = []; d = [], c and d are guaranteed to refer to two different, unique, newly created empty lists. (Note that c = d = [] assigns (назначают) the same object to both c and d.)
+
+
+
+
+3. Garbage collector.
+https://habr.com/ru/post/417215/
+https://www.youtube.com/watch?v=URNdRl97q_0&t=1553s
+https://speakerdeck.com/nnja/nina-zakharenko-the-basics-of-memory-management-in-python-north-bay-python-2018
+
+
+Как правило, вам не нужно беспокоиться о сборщике мусора и работе с памятью когда вы пишете код на Python. Как только объекты больше не нужны, Python автоматически освобождает память из под них. Несмотря на это, понимание как работает GC поможет писать более качественный код.
+
+Менеджер памяти
+
+В отличие от других популярных языков, Python не освобождает всю память обратно операционной системе как только он удаляет какой либо объект. Вместо этого, он использует дополнительный менеджер памяти, предназначенный для маленьких объектов (размер которых меньше чем 512 байт). Для работы с такими объектами он выделяет большие блоки памяти, в которых в дальнейшем будет хранится множество маленьких объектов.
+
+Как только один из маленьких объект удаляется — память из под него не переходит операционной системе, Python оставляет её для новых объектов с таким же размером. Если в одном из выделенных блоков памяти не осталось объектов, то Python может высвободить его операционной системе. Как правило, высвобождение блоков случается когда скрипт создает множество временных объектов.
+
+Таким образом, если долгоживущий Python процесс с течением времени начинает потреблять больше памяти, то это совсем не означает, что в вашем коде есть проблема с утечкой памяти. Если вы хотите узнать больше о менеджере памяти в Python, вы можете прочитать об этом в другой моей статье (англ.).
+
+Алгоритмы сборки мусора
+
+Стандартный интерпретатор питона (CPython) использует сразу два алгоритма, подсчет ссылок и generational garbage collector (далее GC), более известный как стандартный модуль gc из Python.
+
+Алгоритм подсчета ссылок очень простой и эффективный, но у него есть один большой недостаток. Он не умеет определять циклические ссылки. Именно из-за этого, в питоне существует дополнительный сборщик, именуемый поколенческий GC, который следит за объектами с потенциальными циклическими ссылками.
+
+В Python, алгоритм подсчета ссылок является фундаментальным и не может отключен, тогда как GC опционален и может быть отключен.
+
+Алгоритм подсчета ссылок
+
+Алгоритм подсчета ссылок это одна из самых простых техник для сборки мусора. Объекты удаляются как только на них больше нет ссылок.
+
+В Python, переменные не хранят значения, а выступают в роли ссылок на объекты. То есть когда вы присваивайте значение новой переменной, то сначала создается объект с этим значением, а уже потом переменная начинает ссылаться на него. На один объект может ссылаться множество переменных.
+
+Каждый объект в Python содержит дополнительное поле (счетчик ссылок), в котором хранится количество ссылок на него. Как только кто-то ссылается на объект, это поле увеличивается на единицу. Если по какой-то причине ссылка пропадает, то это поле уменьшается на один.
+
+Примеры, когда количество ссылок увеличивается:
+
+оператор присваивания
+передача аргументов
+вставка нового объекта в лист (увеличивается количество ссылок для объекта)
+конструция вида foo = bar (foo начинается ссылаться на тот же объект, что и bar)
+
+Как только счетчик ссылок для определенного объекта достигает нуля интерпретатор запускает процесс уничтожения объекта. Если удаленный объект содержал ссылки на другие объекты, то эти ссылки также удаляются. Таким образом, удаление одного объекта может повлечь за собой удаление других.
+
+Например, если удаляется список, то счетчик ссылок во всех его элементах уменьшается на один. Если все объекты внутри списка больше нигде не используются, то они также будут удалены.
+
+Переменные, которые объявлены вне функций, классов и блоков называются глобальными. Как правило, жизненный цикл таких переменных равен жизни Python процесса. Таким образом, количество ссылок на объекты на которые ссылаются глобальные переменные никогда не падает до нуля.
+
+Переменные, которые объявлены внутри блока (функции, класса) имеют локальную видимость (т.е. они видны только внутри блока). Как только интерпретатор питона выходит из блока он уничтожает все ссылки созданные локальными переменными внутри него.
+
+Вы всегда можете проверить количество ссылок используя функцию sys.getrefcount.
+
+Пример работы счетчика ссылок:
+
+foo = []
+
+# 2 ссылки, одна от переменной foo и одна от getrefcount
+print(sys.getrefcount(foo))
+
+def bar(a):
+    # 4 ссылки
+    # от foo, аргумента функции (a), getrefcount и одна от стека вызова функции
+    print(sys.getrefcount(a))
+
+bar(foo)
+# 2 ссылки, локальные ссылки внутри функции уничтожены
+print(sys.getrefcount(foo))
+
+Основная причина, из-за которой стандартный интерпретатор (CPython) использует счетчик ссылок, является исторической. В настоящее время можно встретить множество дебатов по поводу данного подхода. Некоторые люди считают, что сборщик мусора может быть намного эффективней без участия алгоритма подсчета ссылок. У данного алгоритма есть множество проблем, таких как циклические ссылки, блокирование потоков, а также дополнительные накладные расходы на память и cpu.
+
+Основным плюсом этого алгоритма является то, что объекты удаляются сразу как только они не нужны.
+
+Дополнительный сборщик мусора
+
+Зачем нам нужен дополнительный алгоритм, когда у нас уже есть подсчет ссылок?
+
+К сожалению, классический алгоритм подсчета ссылок имеет один большой недостаток — он не умеет находить циклические ссылки. Циклические ссылки происходят когда один или более объектов ссылаются на друг друга.
+
+Два примера:
+
+image
+
+Как вы можете видеть, объект lst ссылается сам на себя, тогда как object1 и object2 ссылаются друг на друга. Для таких объектов счетчик ссылок всегда будет равен 1.
+
+Демонстрация на Python:
+
+import gc
+
+# используется ctypes для доступа к объектам по адресу памяти
+class PyObject(ctypes.Structure):
+    _fields_ = [("refcnt", ctypes.c_long)]
+
+
+gc.disable()  # выключаем циклический GC
+
+lst = []
+lst.append(lst)
+
+# сохраняем адрес списка lst
+lst_address = id(lst)
+
+# удаляем ссылку lst
+del lst
+
+object_1 = {}
+object_2 = {}
+object_1['obj2'] = object_2
+object_2['obj1'] = object_1
+
+obj_address = id(object_1)
+
+# удаляем ссылки
+del object_1, object_2
+
+# раскомментируйте для запуска ручной сборки объектов с циклическими ссылками
+# gc.collect()
+
+# проверяем счетчик ссылок
+print(PyObject.from_address(obj_address).refcnt)
+print(PyObject.from_address(lst_address).refcnt)
+
+В примере выше, инструкция del удаляет ссылки на наши объекты (не сами объекты). Как только Python выполняет инструкцию del эти объекты становятся недоступны из Python кода. Однако, с выключенным модулем gc они по прежнему будут оставаться в памяти, т.к. они имели циклические ссылки и их счетчик по прежнему равен единице. Вы можете визуально исследовать такие связи используя библиотеку objgraph.
+
+Для того, чтобы исправить эту проблему, в Python 1.5 был добавлен дополнительный алгоритм, известный как модуль gc. Единственная задача которого удаление циклических объектов, к которым уже нет доступа из кода.
+
+Циклические ссылки могут происходить только в “контейнерных” объектах. Т.е. в объектах, которые могут хранить другие объекты, например в списках, словарях, классах и кортежах. GC не следит за простыми и неизменяемыми типами, за исключением кортежей. Некоторые кортежи и словари так же исключаются из списка слежки при выполнении определенных условий. Со всеми остальными объектами гарантированно справляется алгоритм подсчета ссылок.
+
+Когда GC срабатывает
+
+В отличие от алгоритма подсчета ссылок, циклический GC не работает в режиме реального времени и запускается периодически. Каждый запуск сборщика создаёт микропаузы в работе кода, поэтому CPython (стандартный интерпретатор) использует различные эвристики, для определения частоты запуска сборщика мусора.
+
+Циклический сборщик мусора разделяет все объекты на 3 поколения (генерации). Новые объекты попадают в первое поколение. Если новый объект выживает процесс сборки мусора, то он перемещается в следующее поколение. Чем выше поколение, тем реже оно сканируется на мусор. Так-как новые объекты зачастую имеют очень маленький срок жизни (являются временными), то имеет смысл опрашивать их чаще, чем те, которые уже прошли через несколько этапов сборки мусора.
+
+В каждой генерации есть специальный счетчик и порог срабатывания, при достижении которых срабатывает процесс сборки мусора. Каждый счетчик хранит количество аллокаций минус количество деаллокаций в данной генерации. Как только в Python создается какой либо контейнерный объект, он проверяет эти счетчики. Если условия срабатывают, то начинается процесс сборки мусора.
+
+Если сразу несколько или больше поколений преодолели порог, то выбирается наиболее старшее поколение. Это сделано из-за того, что старые поколения также сканируют все предыдущие. Чтобы сократить число пауз сборки мусора для долгоживущих объектов, самая старшая генерация имеет дополнительный набор условий.
+
+Стандартные пороги срабатывания для поколений установлены на 700, 10 и 10 соответственно, но вы всегда можете их изменить с помощью функций gc.get_threshold и gc.set_threshold.
+
+Алгоритм поиска циклов
+
+Для полноценного описания алгоритма поиска циклов потребуется отдельная статья. Если кратко, то GC итерирует каждый объект из выбранных поколений и временно удаляет все ссылки от отдельно взятого объекта (все ссылки на которые этот объект ссылается). После полного прохода, все объекты, у которых счетчик ссылок меньше двух считаются недоступными из питона и могут быть удалены.
+
+Для более глубокого понимания я рекомендую прочитать (прим. переводчика: английский материал) оригинальное описание алгоритма от Neil Schemenauer и функцию collect из исходников CPython. Описание из Quora и пост о сборщике мусора так же могут быть полезны.
+
+Стоит отметить, что проблема с деструкторами описанная в оригинальном описании алгоритма была исправлена начиная с Python 3.4 (подробнее в PEP 442).
+
+Советы по оптимизации
+
+Циклы зачастую случаются в реальных задачах, их можно встретить в задачах с графами, связными списками или в структурах данных, где требуется вести учёт отношений между объектами. Если ваша программа имеет высокую нагрузку и требовательна к задержкам, то, по возможности, циклы лучше избегать.
+
+В местах, где вы заведомо используйте циклические ссылки, можно использовать «слабые» ссылки. Слабые ссылке реализованы в модуле weakref и в отличие от обычных ссылок никак не влияют на счётчик ссылок. Если объект со слабой ссылок оказывается удалённым, то вместо него возвращается None.
+
+В некоторых случаях полезно отключить автоматическую сборку модулем gc и вызывать его вручную. Для этого достаточно вызывать gc.disable() и в дальнейшем вызывать gc.collect() вручную.
+
+Как найти и отладить циклические ссылки
+
+Отладка циклов может быть мучительной, особенно если в вашем коде используется множество сторонних модулей.
+
+Модуль gc предоставляет вспомогательные функции, которые могут помочь в отладке. Если параметры GC установить на флаг DEBUG_SAVEALL, то все недоступные объекты будут добавлены в список gc.garbage.
+
+import gc
+
+gc.set_debug(gc.DEBUG_SAVEALL)
+
+print(gc.get_count())
+lst = []
+lst.append(lst)
+list_id = id(lst)
+del lst
+gc.collect()
+for item in gc.garbage:
+    print(item)
+    assert list_id == id(item)
+
+Как только вы определите проблемное место — его можно визуализировать с помощью objgraph.
+
+image
+
+Заключение
+
+Основной процесс сборки мусора выполняется алгоритмом подсчета ссылок, который очень простой и не имеет настроек. Дополнительный алгоритм используется только для поиска и удаления объектов с циклическими ссылками.
+
+Не стоит заниматься преждевременной оптимизацией кода под сборщик мусора, на практике серьёзне проблемы со сборкой мусора встречаются довольно редко.
+
+P.S.: Я являюсь автором этой статьи, можете задавать любые вопросы.
