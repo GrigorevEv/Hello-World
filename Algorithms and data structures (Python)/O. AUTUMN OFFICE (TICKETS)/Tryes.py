@@ -1,4 +1,4 @@
 a = True
-b = True
-c = a ^ b
-print(bool(c))
+b = False
+c = a + b
+print(c)
