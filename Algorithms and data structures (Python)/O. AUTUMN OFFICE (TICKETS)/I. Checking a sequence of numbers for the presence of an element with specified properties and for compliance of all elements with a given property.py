@@ -14,9 +14,14 @@ False
 
 
 def even_digits_in_sequence(x: list):
+    flag = True
     for i in range(len(x)):
         if x[i] % 2 == 0:
             print(x[i], end=' ')
+            flag = False
+    else:
+        if flag:
+            print(0)
 
 
 def all_digits_in_sequence_are_even(x: list):
