@@ -7,7 +7,6 @@
 """
 
 
-
 def three_max_elements(x: list):
     a = b = c = 0
     for i in range(len(x)):
