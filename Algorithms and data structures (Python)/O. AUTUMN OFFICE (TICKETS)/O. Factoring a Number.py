@@ -13,4 +13,5 @@ def factorize_number(x):
         else:
             divizor += 1
 
+
 factorize_number(6544465444)
