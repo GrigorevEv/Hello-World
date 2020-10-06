@@ -34,7 +34,6 @@ def merge_sort(a):
     merge_sort(l)
     merge_sort(r)
     c = merge(l, r)
-    print(c)
     for i in range(len(a)):
         a[i] = c[i]
     return a
