@@ -1,6 +1,6 @@
 # Сортировка вставками
 
-def insert_sort(A):
+def insertion_sort(A):
     """Сортировка списка А вставками"""
     n = len(A)
     for top in range(1, n):
@@ -32,4 +32,4 @@ def test_sort(sort_algorithm):
 
 
 if __name__ == '__main__':
-    test_sort(insert_sort)
+    test_sort(insertion_sort)
