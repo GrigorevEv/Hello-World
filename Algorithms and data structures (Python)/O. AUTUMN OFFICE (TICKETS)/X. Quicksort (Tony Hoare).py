@@ -18,5 +18,7 @@ def q_sort(a):
         for i in l + m + r:
             a[k] = i
             k += 1
+        return a
 
 
+print(q_sort([5, 4, 3, 2, 1, 0]))
