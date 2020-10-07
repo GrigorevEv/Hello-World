@@ -39,5 +39,5 @@ def merge_sort(a):
     return a
 
 
-print(merge_sort([2345, 4, 458, 845, 84, 839, 98, 4, 8, 0, 65444]))
+print(merge_sort([5, 4, 3, 2, 1, 0]))
 
