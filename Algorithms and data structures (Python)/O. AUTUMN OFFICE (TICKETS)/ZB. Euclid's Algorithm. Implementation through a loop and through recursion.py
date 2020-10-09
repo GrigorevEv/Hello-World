@@ -1,12 +1,22 @@
 # Алгоритм Евклида. Реализация через цикл и через рекурсию
 
-def gcd(a, b):
+def gcd_recursion(a=int(input()), b=int(input())):
     if b == 0:
         return a
     else:
-        return gcd(b, a % b)
+        return gcd_recursion(b, a % b)
 
 
-c = int(input())
-d = int(input())
-print(gcd(c, d))
+print(gcd_recursion())
+
+
+def gcd_cycle(a=int(input()), b=int(input())):
+    while a != 0 and b != 0:
+        if a > b:
+            a = a % b
+        else:
+            b = b % a
+    return a+b
+
+
+print(gcd_cycle())
