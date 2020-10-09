@@ -84,12 +84,13 @@ def matryoshka(n):
 matryoshka(5)
 
 
-def fib(n):
-    if n <= 1:
-        return n
+def factorial(n):
+    assert n >= 0, 'Факториал отрицательного числа не определен'
+    if n == 0:
+        return 1
     else:
-        return fib(n - 1) + fib(n - 2)
+        return factorial(n - 1)*n
 
 
-print(fib(4))
+print(factorial(6))
 
