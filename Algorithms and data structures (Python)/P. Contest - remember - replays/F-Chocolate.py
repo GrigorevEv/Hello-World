@@ -19,7 +19,8 @@ if n % 2 == 1:
     b = 0
 else:
     for i in range(1, n//2):
-        b = 4*b - a
+        c = 4*b - a
         a = b
+        b = c
 print(b)
 
