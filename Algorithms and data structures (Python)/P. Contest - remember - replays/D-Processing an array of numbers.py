@@ -15,6 +15,27 @@
 
 a = []
 digit = 0
-while digit != '#':
+
+
+while True:
     digit = input()
+    if digit == '#':
+        break
     a.append(int(digit))
+average = 0
+maximum = a[0]
+minimum = a[0]
+k = 0
+sum_mod = 0
+for i in range(len(a)):
+    average += a[i]/len(a)
+    if maximum < a[i]:
+        maximum = a[i]
+    if minimum > a[i]:
+        minimum = a[i]
+    k += 1
+    if k == 3:
+        sum_mod += (a[i] + a[i-1] + a[i-2]) % a[i]
+        k = 0
+
+print(round(average, 3), maximum, minimum, sum_mod)
