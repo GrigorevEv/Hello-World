@@ -1,5 +1,10 @@
-a = [0] * 10
-k = 1
-while len(a) > 0:
-    a.pop(len(a) - 1)
-    print(len(a))
+a = (1, 2, 3)
+print(a.__sizeof__())
+b = list(a)
+print(b.__sizeof__())
+c = set(a)
+print(c.__sizeof__())
+a = tuple(c)
+print(a.__sizeof__())
+b = list(c)
+print(b.__sizeof__())
