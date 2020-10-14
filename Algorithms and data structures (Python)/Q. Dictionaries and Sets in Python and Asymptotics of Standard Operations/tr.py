@@ -1,8 +1,9 @@
-from newspaper import article
+def replace_words(s, words):
+    for k, v in words.items():
+        s = s.replace(k, v)
+    return s
 
-# help(article)
-file = article.Article("http://judge.mipt.ru/mipt_cs_on_python3/extra/lab17/task4/en-ru.txt")
-file = file.download()
-# file = file.parse()
-# file.text
-print(file)
+s = 'hello world'
+dictionary = {"hello": "foo", "world": "bar"}
+
+print(replace_words(s, dictionary))
