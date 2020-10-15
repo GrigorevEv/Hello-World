@@ -1,4 +1,0 @@
-
-
-string = 'апапа'
-print(string)
