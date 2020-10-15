@@ -1,0 +1,4 @@
+
+
+string = 'апапа'
+print(string)
