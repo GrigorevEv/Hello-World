@@ -85,7 +85,7 @@ while True:
     # Adding colision of balls
 
 
-    radius = 20
+    radius = 30
     dist = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
     if dist <= radius * 2:
         quit()
