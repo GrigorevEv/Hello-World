@@ -11,7 +11,7 @@ clock = pygame.time.Clock()  # Create an object to help track time
 
 x1, x2, y1, y2 = 30, 470, 30, 470
 vx1, vy1, vx2, vy2 = 50, 30, 30, 50
-windage = 0.001
+windage = 0.05
 
 while True:
     dt = clock.tick(50)/300  # The program will never run at more than 50 frames per second
@@ -80,17 +80,15 @@ while True:
     r = abs(vx1) * 5
     g = abs(vx2) * 5
 
-
-
     # Adding colision of balls
-
 
     radius = 30
     dist = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
     if dist <= radius * 2:
-        quit()
-
-
+        vx1 = vx2
+        vy1 = vy2
+        vx2 = -vx2
+        vy2 = -vy2
 
     screen.fill((10, 50, 30))
     pygame.draw.circle(screen, (r, 70, 70), (int(x1), int(y1)), radius, 9)
