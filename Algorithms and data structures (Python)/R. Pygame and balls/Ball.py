@@ -80,15 +80,20 @@ while True:
     r = abs(vx1) * 5
     g = abs(vx2) * 5
 
+
+
     # Adding colision of balls
 
+
     radius = 20
+    dist = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
+    if dist <= radius * 2:
+        quit()
+
 
 
     screen.fill((10, 50, 30))
-    pygame.draw.circle(screen, (r, 70, 70), (int(x1), int(y1)), radius*2, 9)
-    pygame.draw.circle(screen, (70, g, 70), (int(x2), int(y2)), radius*2, 9)
-    if x1 + radius == x2 + radius or x1 - radius == x2 + radius or x1 + radius == x2 - radius or x1 - radius == x2 - radius:
-        quit()
+    pygame.draw.circle(screen, (r, 70, 70), (int(x1), int(y1)), radius, 9)
+    pygame.draw.circle(screen, (70, g, 70), (int(x2), int(y2)), radius, 9)
     pygame.display.flip()  # refreshes the screen and displays everything
     pygame.event.pump()
