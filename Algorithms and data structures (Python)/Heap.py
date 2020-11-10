@@ -28,7 +28,7 @@ class Heap:
         while 2 * i + 1 < self.size:
             if self.values[2 * i + 1] < self.values[i]:
                 j = 2 * i + 1
-            if 2 * i + 2 < self.size and self.values[2 * i + 2] < self.values[i]:
+            if 2 * i + 2 < self.size and self.values[2 * i + 2] < self.values[j]:
                 j = 2 * i + 2
             if i == j:
                 break
