@@ -13,9 +13,13 @@ class Heap:
              self.values[i], self.values[(i-1) // 2] = self.values[(i-1) // 2], self.values[i]
 
     def extract_min(self):
+        if not self.size:
+            return None
         tmp = self.values[0]
         self.values[0] = self.values[-1]
         self.values.pop()
+        if not self.size:
+            return None
         self.size -= 1
         self.shift_down(0)
         return tmp
@@ -24,7 +28,7 @@ class Heap:
         while 2 * i + 1 < self.size:
             if self.values[2 * i + 1] < self.values[i]:
                 j = 2 * i + 1
-            if 2 * i + 2 < self.size and self.values[2 * i + 2] < self.values[j]:
+            if 2 * i + 2 < self.size and self.values[2 * i + 2] < self.values[i]:
                 j = 2 * i + 2
             if i == j:
                 break
