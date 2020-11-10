@@ -4,6 +4,7 @@ pygame.init()
 
 width = 500
 height = 500
+radius = 30
 pos = []
 speed = []
 
@@ -12,9 +13,9 @@ pygame.display.set_caption('YAHOOOO')
 clock = pygame.time.Clock()
 
 
-def balls_draw(colour: tuple, xpos, ypos, radius=30):
+def balls_draw(colour: tuple, xpos, ypos, r):
     """This function draws the ball"""
-    ball = pygame.draw.circle(screen, colour, (int(xpos), int(ypos)), radius)
+    ball = pygame.draw.circle(screen, colour, (int(xpos), int(ypos)), r)
     return ball
 
 
@@ -31,11 +32,11 @@ def events():
     return pos, speed
 
 
-def bounce_off_the_walls(xpos, ypos, x_speed, y_speed, window_width, window_height):
+def bounce_off_the_walls(xpos, ypos, x_speed, y_speed, window_width, window_height, r):
     """This function added bounce of the walls"""
-    if xpos >= window_width or xpos <= 0:
+    if xpos >= window_width - r or xpos <= 0 + r:
         x_speed = -x_speed
-    elif ypos >= window_height or ypos <= 0:
+    elif ypos >= window_height - r or ypos <= 0 + r:
         y_speed = -y_speed
     return x_speed, y_speed
 
@@ -108,7 +109,7 @@ while True:
         vx, vy = wintage(vx, vy)
         colour = colour_change(abs(vx))
         vx, vy = direction_change(x, y, vx, vy, width, height)
-        vx, vy = bounce_off_the_walls(x, y, vx, vy, width, height)
+        vx, vy = bounce_off_the_walls(x, y, vx, vy, width, height, radius)
 
         # for j in range(len(coords)-1, i, -1):
         #     if collision(vx, vy, speed[j][0], speed[j][1]):
@@ -117,9 +118,8 @@ while True:
         #         speed[j][0] = -speed[j][0]
         #         speed[j][1] = -speed[j][1]
 
-
         x, y = ball_move(x, y, vx, vy)
-        balls_draw(colour, x, y)
+        balls_draw(colour, x, y, radius)
 
         coords[i][0] = x
         coords[i][1] = y

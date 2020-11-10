@@ -1,19 +1,30 @@
-class LinkedList:
+class Heap:
     def __init__(self):
-        self._begin = None
+        self.values = []
+        self.size = 0
 
     def insert(self, x):
-        self._begin = [x, self._begin]
+        self.values.append(x)
+        self.size += 1
+        self.shift_up(self.size - 1)
 
-    def pop(self):
-        assert self._begin is not None, 'List empty'
-        x = self._begin[0]
-        self._begin = self._begin[1]
-        return x
+    def shift_up(self, i):
+         while i != 0 and self.values[(i-1) // 2]:
+             self.values[i], self.values[(i-1) // 2] = self.values[(i-1) // 2], self.values[i]
 
+    def extract_min(self):
+        tmp = self.values[0]
+        self.values[0] = self.values[-1]
+        self.values.pop()
+        self.size -= 1
+        self.shift_down(0)
 
-a = LinkedList()
-a.insert(5)
-a.insert(10)
-print(a.pop())
-print(a.pop())
+    def shift_down(self, i):
+        while 2 * i + 1 < self.size:
+            if self.values[2 * i + 1] < self.values[i]:
+                j = 2 * i + 1
+            if 2 * i + 2 < self.size and self.values[2 * i + 2] < self.values[j]:
+                j = 2 * i + 2
+            if i == j:
+                break
+            self.values[i], self.values[j] = self.values[j], self.values[i]
