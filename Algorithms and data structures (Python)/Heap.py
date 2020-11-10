@@ -6,11 +6,11 @@ class Heap:
     def insert(self, x):
         self.values.append(x)
         self.size += 1
-        self.shift_up(self.size - 1)
+        self.sift_up(self.size - 1)
 
-    def shift_up(self, i):
-         while i != 0 and self.values[(i-1) // 2]:
-             self.values[i], self.values[(i-1) // 2] = self.values[(i-1) // 2], self.values[i]
+    def sift_up(self, i):
+        while i != 0 and self.values[(i - 1) // 2]:
+            self.values[i], self.values[(i - 1) // 2] = self.values[(i - 1) // 2], self.values[i]
 
     def extract_min(self):
         if not self.size:
@@ -21,10 +21,10 @@ class Heap:
         if not self.size:
             return None
         self.size -= 1
-        self.shift_down(0)
+        self.sift_down(0)
         return tmp
 
-    def shift_down(self, i):
+    def sift_down(self, i):
         while 2 * i + 1 < self.size:
             if self.values[2 * i + 1] < self.values[i]:
                 j = 2 * i + 1
