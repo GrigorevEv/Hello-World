@@ -18,6 +18,7 @@ class Heap:
         self.values.pop()
         self.size -= 1
         self.shift_down(0)
+        return tmp
 
     def shift_down(self, i):
         while 2 * i + 1 < self.size:
