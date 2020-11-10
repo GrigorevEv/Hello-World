@@ -1,3 +1,6 @@
+
+# Куча
+
 class Heap:
     def __init__(self):
         self.values = []
@@ -33,3 +36,22 @@ class Heap:
             if i == j:
                 break
             self.values[i], self.values[j] = self.values[j], self.values[i]
+
+
+# Сортировка через кучу
+
+def heapefy(arr):
+    """Transform array to heap"""
+    heap = Heap()
+    for item in arr:
+        heap.insert(item)
+    return heap
+
+
+def get_sorted_arr(heap):
+    """Sorting"""
+    arr = []
+    while heap.size:
+        arr.append(heap.extract_min())
+    return arr
+
