@@ -1,5 +1,7 @@
+# coding=utf-8
 
-#  Û˜‡
+# –ü—Ä–æ–≤–µ—Ä–∏—Ç—å –≤–µ—Å—å –∫–æ–¥!!!!!!!!!!!!!!!!!!!!!!!!!
+# –ö—É—á–∞
 
 class Heap:
     def __init__(self):
@@ -14,6 +16,7 @@ class Heap:
     def sift_up(self, i):
         while i != 0 and self.values[(i - 1) // 2]:
             self.values[i], self.values[(i - 1) // 2] = self.values[(i - 1) // 2], self.values[i]
+            i = (i - 1) // 2
 
     def extract_min(self):
         if not self.size:
@@ -28,6 +31,7 @@ class Heap:
         return tmp
 
     def sift_down(self, i):
+        j = 0
         while 2 * i + 1 < self.size:
             if self.values[2 * i + 1] < self.values[i]:
                 j = 2 * i + 1
@@ -36,11 +40,13 @@ class Heap:
             if i == j:
                 break
             self.values[i], self.values[j] = self.values[j], self.values[i]
+            i = j
 
 
-# —ÓÚËÓ‚Í‡ ˜ÂÂÁ ÍÛ˜Û
+# –°–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞ —á–µ—Ä–µ–∑ –∫—É—á—É
 
-def heapefy(arr):
+
+def heapify(arr):
     """Transform array to heap"""
     heap = Heap()
     for item in arr:
@@ -55,3 +61,18 @@ def get_sorted_arr(heap):
         arr.append(heap.extract_min())
     return arr
 
+
+def heapify_fast(arr):
+    heap = Heap()
+    heap.values = arr[:]
+    heap.size = len(arr)
+    for i in reversed(range(heap.size//2)):
+        heap.sift_down(i)
+    return heap
+
+
+a = [5, 6, 54, 654, 89, 111, 65, 5]
+
+a = heapify(a)
+a = get_sorted_arr(a)
+print(a)
