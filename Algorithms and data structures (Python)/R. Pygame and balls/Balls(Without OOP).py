@@ -4,18 +4,18 @@ pygame.init()
 
 width = 500
 height = 500
-x, y = 30, 30
-vx, vy = 100, 120
+radius = 30
 pos = []
+speed = []
 
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('YAHOOOO')
 clock = pygame.time.Clock()
 
 
-def balls_draw(colour: tuple, xpos, ypos, radius=20):
+def balls_draw(colour: tuple, xpos, ypos, r):
     """This function draws the ball"""
-    ball = pygame.draw.circle(screen, colour, (int(xpos), int(ypos)), radius)
+    ball = pygame.draw.circle(screen, colour, (int(xpos), int(ypos)), r)
     return ball
 
 
@@ -28,14 +28,15 @@ def events():
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 pos.append(list(event.pos))
-    return pos
+                speed.append([100, 120])
+    return pos, speed
 
 
-def bounce_off_the_walls(xpos, ypos, x_speed, y_speed, window_width, window_height):
+def bounce_off_the_walls(xpos, ypos, x_speed, y_speed, window_width, window_height, r):
     """This function added bounce of the walls"""
-    if xpos >= window_width or xpos <= 0:
+    if xpos >= window_width - r or xpos <= 0 + r:
         x_speed = -x_speed
-    elif ypos >= window_height or ypos <= 0:
+    elif ypos >= window_height - r or ypos <= 0 + r:
         y_speed = -y_speed
     return x_speed, y_speed
 
@@ -55,7 +56,7 @@ def direction_change(xpos, ypos, x_speed, y_speed, window_width, window_heigh):
     return x_speed, y_speed
 
 
-def wintage(x_speed, y_speed, windage=0.001):
+def wintage(x_speed, y_speed, windage=0.1):
     """This function added windage to the ball's speed"""
     if x_speed != 0 or y_speed != 0 or x_speed != 0 or y_speed != 0:
         if x_speed > 0:
@@ -77,32 +78,46 @@ def ball_move(xpos, ypos, x_speed, y_speed):
     return xpos, ypos
 
 
-def colour_change(x_speed, y_speed):
+def collision(ball1_x, ball1_y, ball2_x, ball2_y):
+    """This function added collision of the balls"""
+    dist = ((ball1_x - ball2_x)**2 + (ball1_y - ball2_y)**2)**0.5
+    if dist <= 30*2:
+        return True
+    else:
+        return False
+
+
+def colour_change(x_speed):
     """This function changes color of the balls,
     depending on the speed"""
     r = abs(x_speed) * 2
-    g = abs(y_speed) * 2
-    b = abs(y_speed) * 2
-    rgb = (r, g, b)
+
+    rgb = (r, 0, 70)
     return rgb
 
 
 while True:
-    coords = events()
+    coords, speed = events()
     screen.fill((10, 80, 30))
-
-    vx, vy = wintage(vx, vy)
-    colour = colour_change(vx, vy)
-    vx, vy = direction_change(x, y, vx, vy, width, height)
-    vx, vy = bounce_off_the_walls(x, y, vx, vy, width, height)
 
     for i in range(len(coords)):
         x = coords[i][0]
         y = coords[i][1]
+        vx = speed[i][0]
+        vy = speed[i][1]
+
+        vx, vy = wintage(vx, vy)
+        colour = colour_change(abs(vx))
+        vx, vy = direction_change(x, y, vx, vy, width, height)
+        vx, vy = bounce_off_the_walls(x, y, vx, vy, width, height, radius)
+
         x, y = ball_move(x, y, vx, vy)
-        balls_draw(colour, x, y)
+        balls_draw(colour, x, y, radius)
+
         coords[i][0] = x
         coords[i][1] = y
+        speed[i][0] = vx
+        speed[i][1] = vy
 
     pygame.display.flip()
     pygame.event.pump()
